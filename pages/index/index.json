@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "我的健康管理",
+  "usingComponents": {
+  },
+  "navigationStyle": "custom"
 }

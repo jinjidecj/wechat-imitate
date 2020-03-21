@@ -1,1 +1,31 @@
-/* pages/friends/friends.wxss */
+.view-list{
+  width: 100%;
+  display: flex;
+  flex-direction:column;
+}
+.view-items{
+  display: flex;
+  flex-direction:column;
+  justify-items: center;
+  background-color: white;
+  margin: 30rpx  30rpx 0rpx 30rpx;
+  border-radius: 10rpx;
+}
+.items{
+  display: flex;
+  flex-direction: row;
+}
+.userinfo-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+.name{
+  font-size: 35rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 30rpx;
+
+}

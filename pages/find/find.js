@@ -14,7 +14,16 @@ Page({
   onLoad: function (options) {
 
   },
-
+  click2048:function(){
+    wx.navigateTo({
+      url: '../2048/2048',
+    })
+  },
+  clickNews: function () {
+    wx.navigateTo({
+      url: '../news/newslist/newslist',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

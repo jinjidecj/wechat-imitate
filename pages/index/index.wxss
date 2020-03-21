@@ -1,7 +1,7 @@
 /**index.wxss**/
 .user{
   padding-top: 80rpx;
-  height: 380rpx;
+  height: 320rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,6 +9,7 @@
   padding: 90rpx 0 0 0;
   box-sizing: border-box;
   background-color: #7661D1;
+  /* background-image:url('../../imgs/sky.jpg'); */
 }
 .userinfo {
   display: flex;
@@ -32,15 +33,22 @@
 }
 
 .user-center {
-  border: solid ;
   width: 95%;
   margin-left: 2.5%;
   background-color: #fff;
   margin-top: -20px;
   z-index: 2;
-  height: 145px;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+}
+.list-view{
+  height: 50rpx;
+  width: 100%;
+  padding: 20rpx 30rpx;
+}
+.item-text{
+  width: 15%;
+  padding-right: 30rpx;
 }

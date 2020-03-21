@@ -1,10 +1,13 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/chatlist/chatlist",
+    "pages/chat/chat",
     "pages/friends/friends",
     "pages/find/find",
-    "pages/logs/logs"
+    "pages/news/newslist/newslist",
+    "pages/chatlist/chatlist",
+    "pages/logs/logs",
+    "pages/2048/2048"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -39,10 +42,13 @@
         "pagePath": "pages/index/index",
         "iconPath": "imgs/bar/my.png",
         "selectedIconPath": "imgs/bar/my_act.png",
-        "text": "我的"
+        "text": "我"
       }
     ]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "mp-searchbar": "components/searchbar/searchbar"
+  }
 }

@@ -1,5 +1,6 @@
 //app.js
 var myCommon = require('/utils/common.js')
+var webSHandle = require('/utils/webSocketMessage.js')
 
 App({
   globalData: {
@@ -42,6 +43,8 @@ App({
         }
       }
     })
+    
+    
   },
   //发送code到后台，获取登录凭证
   sendCode:function(code){
@@ -54,8 +57,10 @@ App({
       method: 'GET',
       success: function (res) {
         console.log(res.data)
-        if ("200" == res.data.status)
+        if ("200" == res.data.status){
           that.saveAuth(res.data.openid, res.data.session_key)
+          that.connectWebSocket()
+        }
         else {
           wx.showToast({
             icon: 'none',
@@ -107,6 +112,7 @@ App({
       }
     })
   },
+  //================openid================//
   saveAuth: function (openId, sessionKey) {
     this.globalData.openId = openId
     this.globalData.sessionKey = sessionKey
@@ -122,5 +128,45 @@ App({
       openId: this.globalData.openId,
       sessionKey: this.globalData.sessionKey
     }
+  },
+  //=================websocket================//
+  //启动WebSocket
+  connectWebSocket:function () {
+    var that = this
+    var url = myCommon.myUrl.webSocketUrl + this.getAuth().openId
+    setTimeout(function () {
+      wx.connectSocket({
+        url: url
+      })
+    }, 500)
+    //监听连接成功事件
+    wx.onSocketOpen(function (res) {
+      console.log("连接成功")
+      that.sendMsg("hello")
+    })
+    //监听 WebSocket 接受到服务器的消息事件
+    wx.onSocketMessage(function (res) {
+      webSHandle.onMessageHandle(res)
+    })
+    //监听连接关闭事件
+    wx.onSocketClose(function (res) {
+      console.log("连接关闭")
+      console.log(res)
+    })
+  },
+  //关闭连接
+  closeWebSocket:function () {
+    wx.closeSocket({})
+  },
+  //发送信息
+  sendMsg:function (data) {
+    var that = this
+    wx.sendSocketMessage({
+      data: JSON.stringify({
+        openId: this.getAuth().openId,
+        sessionKey: this.getAuth().sessionKey,
+        data: data
+      })
+    })
   },
 })

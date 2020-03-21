@@ -1,0 +1,28 @@
+<view>
+  <view class="view-list" >
+    <view class="view-items" wx:for="{{newsList}}">
+      <view class="items">
+        <image src="{{item.thumbnail_pic_s}}" class="newsImg"></image>
+      </view>
+      <view class="items-text">
+       <text class="title">{{item.title}}</text>
+       <text class="title gray-font">{{item.date}}</text>
+      </view>
+      <view class="items-text">
+      </view>
+    </view>
+  </view>
+  <view>
+    <view wx:if="{{isLoading}}">
+      <view class="loading">
+        
+      </view>
+      <view class='copy-view bottom-view'>
+				<view class="copy-item">Copyright @ ZCJ</view>
+		  </view>
+    </view>
+    <view wx:else class='copy-view'>
+				<view class="copy-item">Copyright @ ZCJ</view>
+		</view>
+  </view>
+</view>

@@ -1,2 +1,19 @@
-<!--pages/find/find.wxml-->
-<text>发现</text>
+<view class="find-view">
+  <view class="view-list">
+    <view class="view-items">
+      <view class="view-left">
+        <view class="item1 item-common" bindtap="clickNews">
+          <text class="title">时事新闻</text>
+        </view>
+      </view>
+      <view class="view-right">
+        <view class="item2 item-common" bindtap="click2048">
+          <text class="title">2048</text>
+        </view>
+        <view class="item3 item-common">
+          <text class="title">敬请期待</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

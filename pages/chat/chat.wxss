@@ -17,7 +17,7 @@ page {
 }
 
 input {
-  width: 90vw;
+  width: 70vw;
   height: 9.33vw;
   background-color: #fff;
   border-radius: 40rpx;

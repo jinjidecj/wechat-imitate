@@ -6,7 +6,8 @@ App({
   globalData: {
     userInfo: null,
     openId:'',
-    sessionKey:''
+    sessionKey:'',
+    webSocket:null,
   },
   onLaunch: function () {
     // 展示本地存储能力
@@ -97,18 +98,18 @@ App({
         if ("200" == res.data.status)
           console.log("更新成功")
         else {
-          wx.showToast({
-            icon: 'none',
-            title: '更新个人信息错误，请联系管理员',
-          })
+          // wx.showToast({
+          //   icon: 'none',
+          //   title: '更新个人信息错误，请联系管理员',
+          // })
         }
       },
       fail: function (error) {
         console.log(error)
-        wx.showToast({
-          icon: 'none',
-          title: '请检查网络',
-        })
+        // wx.showToast({
+        //   icon: 'none',
+        //   title: '请检查网络',
+        // })
       }
     })
   },
@@ -135,14 +136,16 @@ App({
     var that = this
     var url = myCommon.myUrl.webSocketUrl + this.getAuth().openId
     setTimeout(function () {
-      wx.connectSocket({
-        url: url
+      that.globalData.webSocket = wx.connectSocket({
+          url: url
       })
     }, 500)
     //监听连接成功事件
     wx.onSocketOpen(function (res) {
       console.log("连接成功")
-      that.sendMsg("hello")
+      that.sendMsg({
+        type:1,
+      })
     })
     //监听 WebSocket 接受到服务器的消息事件
     wx.onSocketMessage(function (res) {

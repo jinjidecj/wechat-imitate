@@ -48,7 +48,8 @@ Page({
     inputBottom: 0,
     id: "",
     name: '',
-    avatarUrl:  ''
+    avatarUrl: '',
+    inputData: '',
   },
 
   /**
@@ -65,6 +66,14 @@ Page({
     wx.setNavigationBarTitle({
       title: this.data.name,
     });
+    //监听websocket事件
+    getApp().globalData.webSocket.onMessage(onMessage => {
+      var data = JSON.parse(onMessage.data)
+      if(this.data.id==data.targetId){
+        this.setDocMsg(data.content)
+      }
+      
+    })
   },
 
 
@@ -112,16 +121,52 @@ Page({
       inputVal
     });
     getApp().sendMsg({
+      type:2,
       id:this.data.id,
       content:e.detail.value
     })
   },
-
+  //按下发送按钮时
+  sendClickBtn: function () {
+    msgList.push({
+      speaker: 'customer',
+      contentType: 'text',
+      content: this.data.inputData
+    })
+    inputVal = '';
+    this.setData({
+      msgList,
+      inputVal
+    });
+    getApp().sendMsg({
+      type: 2,
+      id: this.data.id,
+      content: this.data.inputData
+    })
+  },
+  //记录输入的数据
+  inputDataFunc: function (e) {
+    this.setData({
+      inputData: e.detail.value
+    })
+  },
   /**
    * 退回上一页
    */
   toBackClick: function () {
     wx.navigateBack({})
+  },
+  setDocMsg: function (msg) {
+    msgList.push({
+      speaker: 'server',
+      contentType: 'text',
+      content: msg
+    })
+    inputVal = '';
+    this.setData({
+      msgList,
+      inputVal
+    });
   }
-
+  
 })

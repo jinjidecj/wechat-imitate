@@ -23,7 +23,12 @@ App({
         that.sendCode(res.code)
       }
     })
-    // 获取用户信息
+  },
+
+  //================个人信息================//
+  //获取用户信息
+  getUserInfo:function(){
+    var that = this
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -44,8 +49,6 @@ App({
         }
       }
     })
-    
-    
   },
   //发送code到后台，获取登录凭证
   sendCode:function(code){
@@ -57,10 +60,12 @@ App({
       },
       method: 'GET',
       success: function (res) {
+        console.log("成功获取登录凭证")
         console.log(res.data)
-        if ("200" == res.data.status){
+        if ("200" == res.data.status) {
           that.saveAuth(res.data.openid, res.data.session_key)
-          that.connectWebSocket()
+          // 获取用户信息
+          that.getUserInfo()
         }
         else {
           wx.showToast({
@@ -80,7 +85,6 @@ App({
   },
   //发送个人信息到后台
   sendUserInfo: function (userInfo) {
-    console.log("ffff")
     var that = this
     var auth = this.getAuth()
     wx.request({
@@ -95,21 +99,27 @@ App({
       method: 'POST',
       success: function (res) {
         console.log(res.data)
-        if ("200" == res.data.status)
-          console.log("更新成功")
+        if ("200" == res.data.status){
+          console.log("更新个人信息成功")
+          wx.showToast({
+            icon: 'none',
+            title: '登录成功',
+          })
+          that.connectWebSocket()
+        }
         else {
-          // wx.showToast({
-          //   icon: 'none',
-          //   title: '更新个人信息错误，请联系管理员',
-          // })
+          wx.showToast({
+            icon: 'none',
+            title: '更新个人信息错误，请联系管理员',
+          })
         }
       },
       fail: function (error) {
         console.log(error)
-        // wx.showToast({
-        //   icon: 'none',
-        //   title: '请检查网络',
-        // })
+        wx.showToast({
+          icon: 'none',
+          title: '请检查网络',
+        })
       }
     })
   },
@@ -117,6 +127,7 @@ App({
   saveAuth: function (openId, sessionKey) {
     this.globalData.openId = openId
     this.globalData.sessionKey = sessionKey
+    console.log("保存登录凭证")
   },
   ifHaveAuth: function () {
     if (this.globalData.sessionKey == '') {
@@ -137,8 +148,9 @@ App({
     var url = myCommon.myUrl.webSocketUrl + this.getAuth().openId
     setTimeout(function () {
       that.globalData.webSocket = wx.connectSocket({
-          url: url
+          url: url  
       })
+      console.log("启动websocket:"+url)
     }, 500)
     //监听连接成功事件
     wx.onSocketOpen(function (res) {

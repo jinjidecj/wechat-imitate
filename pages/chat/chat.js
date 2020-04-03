@@ -122,7 +122,7 @@ Page({
     });
     getApp().sendMsg({
       type:2,
-      id:this.data.id,
+      targetId:this.data.id,
       content:e.detail.value
     })
   },

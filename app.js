@@ -6,9 +6,12 @@ App({
   globalData: {
     userInfo: null,
     openId:'',
+    
     sessionKey:'',
     webSocket:null,
   },
+  //用户登录逻辑：微信登录接口-获取code，发送到后台获取openId,sessionKey并保存到本地,
+  //成功后获取个人信息,发送到后台进行保存或更新，成功后启动websocket连接
   onLaunch: function () {
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
@@ -101,17 +104,49 @@ App({
         console.log(res.data)
         if ("200" == res.data.status){
           console.log("更新个人信息成功")
-          wx.showToast({
-            icon: 'none',
-            title: '登录成功',
-          })
+          // wx.showToast({
+          //   icon: 'none',
+          //   title: '登录成功',
+          // })
           that.connectWebSocket()
+          that.isLogin()
         }
         else {
           wx.showToast({
             icon: 'none',
             title: '更新个人信息错误，请联系管理员',
           })
+        }
+      },
+      fail: function (error) {
+        console.log(error)
+        wx.showToast({
+          icon: 'none',
+          title: '请检查网络',
+        })
+      }
+    })
+  },
+  //判断是否注册过--判断是否填写了个人id
+  ifRegist:function(){
+    var that = this
+    var auth = this.getAuth()
+    wx.request({
+      url: myCommon.myUrl.ifRegistUrl,
+      data: {
+        openId: auth.openId,
+        sessionKey: auth.sessionKey,
+      },
+      method: 'GET',
+      success: function (res) {
+        console.log(res.data)
+        if ("200" == res.data.status) {
+          console.log(res.data.msg)
+          that.isLogin(true)
+        }
+        else {
+          console.log(res.data.msg)
+          that.isLogin(false)
         }
       },
       fail: function (error) {

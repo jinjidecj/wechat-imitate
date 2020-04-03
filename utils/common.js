@@ -3,7 +3,7 @@ var ip='127.0.0.1'
 var serverIp='115.29.151.221'
 var port='8090'
 
-var nowIp = serverIp
+var nowIp = ip
 
 var headUrl = 'http://'+nowIp+':'+port+'/'
 var myUrl = {
@@ -13,6 +13,7 @@ var myUrl = {
   userInfoUrl:headUrl+'userInfo',
   newsListUrl: headUrl +'newsList',
   getAllUserUrl:headUrl+'allUser',
+  ifRegistUrl:headUrl+'isRegister',
 }
 
 module.exports={

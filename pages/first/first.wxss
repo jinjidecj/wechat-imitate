@@ -1,0 +1,68 @@
+@import "../friends/friends.wxss";
+
+.background-img{
+  background-image: url("http:///127.0.0.1:8090/static/imgs/bk.png");
+  height: 100vh;
+  width: 100vw;
+}
+.phone-height{
+  height: 100vh;
+}
+.background-view{
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+}
+.bk-img{
+  height: 100%;
+  width:100%;
+}
+.front-view{
+  position: fixed;
+  z-index: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+
+}
+.notify-view{
+  margin-top: 20%;
+  border-radius: 30rpx;
+  height: 70%;
+  width:80%;
+  background:rgba(255,255,255,0.5);
+}
+.title{
+  display: flex;
+  justify-content: center;
+  font-size: 40rpx;
+  padding: 10rpx;
+}
+.content{
+  padding: 20rpx 20rpx 0 20rpx;
+}
+.input-css{
+  height: 100rpx;
+  border: solid 1rpx;
+  border-radius: 10rpx;
+  width: 80%;
+  padding: 10rpx;
+}
+.input-box{
+  margin-top: 50rpx;
+  display: flex;
+  justify-content: center;
+}
+.text-view{
+  height: 50%;
+}
+.input-view{
+  height: 50%;
+}
+.icon-css{
+  margin-top: 50rpx;
+  display: flex;
+  justify-content: center;
+}

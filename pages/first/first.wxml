@@ -1,0 +1,29 @@
+<view class="front-view" >
+ <view class="notify-view" wx:if="{{isLogin}}">
+    <view class="text-view">
+      <view class="title">
+        <text>用前须知</text>
+      </view>
+      <view class="content">
+        <text space="ensp" class="hellotext">   1.本小程序只供学习使用，不可用于其他用途（商业、社交等）。</text>
+      </view>
+      <view class="content">
+        <text space="ensp" class="hellotext">   2.本小程序获取用户微信头像，昵称，性别与地址用于展示，并保存用户微信头像，昵称，性别。</text>
+      </view>
+      <view class="content">
+        <text space="ensp" class="hellotext">   3.请在下方填写个人唯一ID，用于添加好友时提供的唯一身份标识。</text>
+      </view>
+    </view>
+    <view class="input-view">
+      <view class="input-box">
+       <input class="input-css" type="text" maxlength="24" bindinput="inputId" placeholder="英文与数字组合，不长于24位" value="{{persionId}}"></input>
+      </view>
+      <view class="icon-css">
+        <icon type="success" size="60" color="#7661D1" bindtap="clickBtn"/>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="background-view">
+  <image class="bk-img" src="http:///127.0.0.1:8090/static/imgs/bk3.jpg"></image>
+</view>

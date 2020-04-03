@@ -108,8 +108,8 @@ App({
           //   icon: 'none',
           //   title: '登录成功',
           // })
+          that.ifRegist()
           that.connectWebSocket()
-          that.isLogin()
         }
         else {
           wx.showToast({

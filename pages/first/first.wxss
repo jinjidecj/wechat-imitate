@@ -66,3 +66,13 @@
   display: flex;
   justify-content: center;
 }
+.loading{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+}
+.loading-text{
+  font-size: 40rpx;
+  font-weight: bold;
+}

@@ -1,8 +1,10 @@
+var myCommon = require('../../utils/common.js')
 Page({
 
   data: {
     persionId:'',
-    isLogin:false
+    isLogin:false,
+    loginLoad:0
   },
   inputId:function(res){
     this.setData({
@@ -11,28 +13,60 @@ Page({
   },
   clickBtn:function(){
     console.log(this.data.persionId)
+    this.register(this.data.persionId)
+  },
+  register: function (persionId) {
+    var that = this
+    var auth = getApp().getAuth()
+    wx.request({
+      url: myCommon.myUrl.registerUrl,
+      data: {
+        openId: auth.openId,
+        sessionKey: auth.sessionKey,
+        userId: persionId
+      },
+      method: 'POST',
+      success: function (res) {
+        console.log(res.data)
+        if ("200" == res.data.status) {
+          wx.showToast({
+            icon: 'none',
+            title: '注册成功',
+          })
+          wx.switchTab({
+            url: '../index/index',
+          })
+        }
+        else {
+          wx.showToast({
+            icon: 'none',
+            title: res.data.msg,
+          })
+        }
+      },
+      fail: function (error) {
+        console.log(error)
+        wx.showToast({
+          icon: 'none',
+          title: '请检查网络',
+        })
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // var flag = wx.getStorage("flag")
     var that = this
-    // if(flag==1){
-    //   wx.switchTab({
-    //     url: '../index/index',
-    //   })
-    // }else{
-      
-    // }
-    Toast.loading({
-      duration: 0,//展示时长(ms)，值为 0 时，toast 不会消失
-      mask: true,
-      message: '登录中...'
-    });
+    
     getApp().isLogin = function (res) {
+      that.setData({
+        loginLoad:100
+      })
       console.log("run login")
-      Toast.clear()//清除toast
+      // that.setData({
+      //   isLogin: true
+      // })
       if(res==true){
         //注册过了
         wx.switchTab({
@@ -44,9 +78,21 @@ Page({
           isLogin: true
         })
       }
-      
     }
+    // 设置倒计时 定时器 每100毫秒执行一次，计数器count+1 ,耗时6秒绘一圈
+    setInterval(() => {
+      if (this.data.loginLoad <= 95) {
+        
+        this.setData({
+          loginLoad:this.data.loginLoad+1
+        })
+      } else {
+        
+        clearInterval(this.countTimer);
+      }
+    }, 50)
   },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -14,6 +14,7 @@ var myUrl = {
   newsListUrl: headUrl +'newsList',
   getAllUserUrl:headUrl+'allUser',
   ifRegistUrl:headUrl+'isRegister',
+  registerUrl: headUrl +'register',
 }
 
 module.exports={

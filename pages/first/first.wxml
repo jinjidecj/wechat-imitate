@@ -23,7 +23,15 @@
       </view>
     </view>
   </view>
+  <block wx:else>
+    <view class="loading">
+      <van-circle value="{{ loginLoad }}"number="200px" >
+        <text class="loading-text">登录中...</text>
+      </van-circle>
+    </view>
+  </block>
 </view>
+
 <view class="background-view">
-  <image class="bk-img" src="http:///127.0.0.1:8090/static/imgs/bk3.jpg"></image>
+  <image class="bk-img" src="http:///127.0.0.1:8090/static/imgs/bk1.jpg"></image>
 </view>

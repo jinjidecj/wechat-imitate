@@ -50,6 +50,7 @@
   "style": "v2",
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "mp-searchbar": "components/searchbar/searchbar"
+    "mp-searchbar": "components/searchbar/searchbar",
+    "van-circle": "@vant/weapp/circle/index"
   }
 }

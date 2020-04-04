@@ -1,15 +1,16 @@
 <view>
   <view class="view-list" >
     <view class="view-items" wx:for="{{newsList}}">
-      <view class="items">
+      <view bindtap="itemClick">
+        <view class="items">
         <image src="{{item.thumbnail_pic_s}}" class="newsImg"></image>
       </view>
       <view class="items-text">
        <text class="title">{{item.title}}</text>
        <text class="title gray-font">{{item.date}}</text>
       </view>
-      <view class="items-text">
       </view>
+      
     </view>
   </view>
   <view>

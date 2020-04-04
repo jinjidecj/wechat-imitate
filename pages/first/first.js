@@ -12,6 +12,13 @@ Page({
     })
   },
   clickBtn:function(){
+    if(this.data.persionId==""){
+      wx.showToast({
+        icon: 'none',
+        title: '请填写ID',
+      })
+      return
+    }
     console.log(this.data.persionId)
     this.register(this.data.persionId)
   },
@@ -33,6 +40,7 @@ Page({
             icon: 'none',
             title: '注册成功',
           })
+          getApp().setUserId(persionId)
           wx.switchTab({
             url: '../index/index',
           })
@@ -67,8 +75,9 @@ Page({
       // that.setData({
       //   isLogin: true
       // })
-      if(res==true){
+      if(res.flag==true){
         //注册过了
+        getApp().setUserId(res.userId)
         wx.switchTab({
           url: '../index/index',
         })

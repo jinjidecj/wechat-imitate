@@ -6,7 +6,7 @@ App({
   globalData: {
     userInfo: null,
     openId:'',
-    
+    userId:'',
     sessionKey:'',
     webSocket:null,
   },
@@ -142,11 +142,19 @@ App({
         console.log(res.data)
         if ("200" == res.data.status) {
           console.log(res.data.msg)
-          that.isLogin(true)
+          that.globalData.userId=res.data.userId
+          if(that.isLogin)
+            that.isLogin({
+              flag:true,
+              userId:res.data.userId
+            })
         }
         else {
           console.log(res.data.msg)
-          that.isLogin(false)
+          if (that.isLogin)
+            that.isLogin({
+              flag: false
+            })
         }
       },
       fail: function (error) {
@@ -175,6 +183,12 @@ App({
       openId: this.globalData.openId,
       sessionKey: this.globalData.sessionKey
     }
+  },
+  setUserId:function(userId){
+    this.globalData.userId=userId
+  },
+  getUserId: function () {
+    return this.globalData.userId
   },
   //=================websocket================//
   //启动WebSocket

@@ -1,0 +1,63 @@
+<view>
+  <view class="view-list">
+    <view class="view-items">
+      <van-search value="{{ searchValue }}" placeholder="请输入好友的ID进行搜索" show-action bind:search="onSearch" bind:cancel="onCancel" />
+    </view>
+
+  </view>
+  <view class="view-list">
+    <view class="view-items" wx:for="{{friendsRequestMsg}}" wx:key="key">
+      <view class="items" id="{{item.id}}" bindtap="clickFriend">
+        <view class="avatar">
+          <image src="{{item.user.avatarUrl}}" class="userinfo-avatar"></image>
+        </view>
+        <view class="name">
+          <text>{{item.user.name}}</text>
+        </view>
+        <view class="name">
+          <text>{{item.node}}</text>
+        </view>
+        <view class="name">
+          <text>{{item.time}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<van-popup show="{{ showPop }}" position="bottom" custom-style="height: 50%" bind:close="onCloseShowPop">
+  <view class="pop-view">
+    <view class="view-list">
+      <view class="view-items">
+        <view class="items" bindtap="clickFriend">
+          <view class="avatar">
+            <image src="{{userSearch.avatarUrl}}" class="userinfo-avatar"></image>
+          </view>
+          <view class="name">
+            <text class="title-size title-padding">{{userSearch.name}}</text>
+            <text class="gary-text text-size title-padding">{{userSearch.userId}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="view-bottom">
+        <view class="input-view">
+          <view class="text-f">
+            <text class="gary-text title-padding">备注:</text>
+          </view>
+          <view class="input-box">
+            <input class="input-css" type="text" maxlength="24" bindinput="inputId" placeholder="填写添加好友时的备注信息" value="{{node}}"></input>
+          </view>
+        </view>
+        <view class="btn-view">
+          <view class="btn-item">
+            <van-button type="primary" size="small" custom-class="btn-small" color="#7661D1" bindtap="confirmAdd">添加好友</van-button>
+          </view>
+          <view class="btn-item">
+            <van-button type="primary" size="small" custom-class="btn-small" color="#7661D1" bindtap="cancelAdd">取消</van-button>  
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</van-popup>
+
+<van-toast id="van-toast" />

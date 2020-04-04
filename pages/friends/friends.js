@@ -1,11 +1,13 @@
 // pages/friends/friends.js
 var myCommon = require('../../utils/common.js')
+var myChat = require('../../utils/chatData.js')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    msgNum:0,
     friends: [
       // {
       //   name: 'zzzz',
@@ -23,6 +25,12 @@ Page({
    */
   onLoad: function (options) {
     this.getFriends()
+  },
+  clickNewFriend:function(){
+    wx.navigateTo({
+      url: '../newFriend/newFriend',
+    })
+    
   },
   clickFriend: function (res) {
     var id = res.currentTarget.id
@@ -63,6 +71,7 @@ Page({
         that.setData({
           friends:res.data
         })
+        myChat.saveFriendsList(res.data)
       },
       fail: function (error) {
         console.log(error)

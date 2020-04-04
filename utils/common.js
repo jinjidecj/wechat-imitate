@@ -15,6 +15,9 @@ var myUrl = {
   getAllUserUrl:headUrl+'allUser',
   ifRegistUrl:headUrl+'isRegister',
   registerUrl: headUrl +'register',
+  findFriendUrl: headUrl +'findFriend',
+  addFriendUrl: headUrl +'addFriend',
+  myAddFriendMsgUrl: headUrl +'myAddMsg',
 }
 
 module.exports={

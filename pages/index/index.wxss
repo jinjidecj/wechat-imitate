@@ -8,8 +8,10 @@
   justify-content: space-between;
   padding: 90rpx 0 0 0;
   box-sizing: border-box;
-  background-color: #7661D1;
-  /* background-image:url('../../imgs/sky.jpg'); */
+  /* background-color: #7661D1; */
+  /* background-image:url('http:///127.0.0.1:8090/static/imgs/sky.jpg'); */
+  background-image:url('http:///115.29.151.221:8090/static/imgs/sky.jpg');
+  background-size:cover;
 }
 .userinfo {
   display: flex;
@@ -22,6 +24,7 @@
   height: 128rpx;
   margin: 20rpx;
   border-radius: 50%;
+  border: 2px solid #fff;  
 }
 
 .userinfo-nickname {

@@ -11,6 +11,10 @@
   </view>
   <view class="user-center">
     <view class="list-view">
+      <text class="item-text">编号</text>
+      <text>{{userId}}</text>
+    </view>
+    <view class="list-view">
       <text class="item-text">昵称</text>
       <open-data type="userNickName"></open-data>
     </view>

@@ -33,5 +33,6 @@
 </view>
 
 <view class="background-view">
-  <image class="bk-img" src="http:///127.0.0.1:8090/static/imgs/bk1.jpg"></image>
+  <!-- <image class="bk-img" src="http:///127.0.0.1:8090/static/imgs/bk3.jpg"></image> -->
+  <!-- <image class="bk-img" src="http:///115.29.151.221:8090/static/imgs/bk3.jpg"></image> -->
 </view>

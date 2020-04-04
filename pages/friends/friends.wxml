@@ -1,16 +1,27 @@
 <view>
-  <view >
-  
+  <view class="view-list">
+    <view class="view-items">
+      <mp-cells bindtap="clickNewFriend">
+        <mp-cell link>
+          <view style="display: inline-block; vertical-align: middle">新的好友</view>
+          <mp-badge wx:if="{{msgNum>0}}" content="{{msgNum}}" style="margin-left: 5px;" />
+          <view class="arrow-right">
+            <mp-icon type="field" icon="arrow" color="gray" size="{{15}}"></mp-icon>
+          </view>
+        </mp-cell>
+      </mp-cells>
+    </view>
+
   </view>
-  <view class="view-list" >
-    <view class="view-items" wx:for="{{friends}}">
+  <view class="view-list">
+    <view class="view-items" wx:for="{{friends}}" wx:key="key">
       <view class="items" id="{{item.id}}" bindtap="clickFriend">
         <view class="avatar">
           <image src="{{item.avatarUrl}}" class="userinfo-avatar"></image>
         </view>
         <view class="name">
           <text>{{item.name}}</text>
-        </view>      
+        </view>
       </view>
     </view>
   </view>

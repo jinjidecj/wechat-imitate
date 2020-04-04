@@ -30,6 +30,12 @@ Page({
     },1000)
     
   },
+  itemClick:function(){
+    wx.showToast({
+      icon: 'none',
+      title: '别点了，没内容',
+    })
+  },
   getNews:function(){
     wx.showLoading({
       title: '加载中',

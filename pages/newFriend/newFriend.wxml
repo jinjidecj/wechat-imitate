@@ -12,15 +12,30 @@
           <image src="{{item.user.avatarUrl}}" class="userinfo-avatar"></image>
         </view>
         <view class="name">
-          <text>{{item.user.name}}</text>
+          <text class="title-size title-padding">{{item.user.name}}</text>
+          <text class="gary-text text-size title-padding">{{item.user.userId}}</text>
+          <text class="gary-text text-size title-padding">{{item.time}}</text>
         </view>
-        <view class="name">
-          <text>{{item.node}}</text>
+        <view class="name" wx:if="{{item.result==1}}">
+          <image class="ra-img" src="../../imgs/agree.png"></image>
         </view>
-        <view class="name">
-          <text>{{item.time}}</text>
+        <view class="name" wx:if="{{item.result==2}}">
+          <image class="ra-img" src="../../imgs/refuse.png"></image>
         </view>
       </view>
+        <view class="node">
+          <text class="title-size title-padding left-padding single-line">备注：</text>
+          <text class="gary-text text-size title-padding">{{item.node}}</text>
+        </view>
+        <view class="btn-view-msg" wx:if="{{item.result==0}}">
+          <view class="btn-item">
+            <van-button type="primary" size="small" custom-class="btn-small" color="#7661D1" data-total="{{item.id}}" bindtap="acceptAdd" >同意</van-button>
+          </view>
+          <view class="btn-item">
+            <van-button type="primary" size="small" custom-class="btn-small" color="#FF7F50" data-total="{{item.id}}" bindtap="refuseAdd">拒绝</van-button>  
+          </view>
+        </view>
+        
     </view>
   </view>
 </view>
@@ -44,7 +59,7 @@
             <text class="gary-text title-padding">备注:</text>
           </view>
           <view class="input-box">
-            <input class="input-css" type="text" maxlength="24" bindinput="inputId" placeholder="填写添加好友时的备注信息" value="{{node}}"></input>
+            <input class="input-css" type="text" maxlength="24" bindinput="inputId" placeholder="填写添加好友时的备注信息" value="{{node}}" maxlength="18"></input>
           </view>
         </view>
         <view class="btn-view">

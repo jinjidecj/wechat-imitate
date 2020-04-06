@@ -25,7 +25,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 30rpx;
 }
 .title-size{
   font-size: 35rpx;
@@ -82,4 +81,25 @@
 }
 .text-f{
   padding: 10rpx;
+}
+.node{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
+.left-padding{
+  padding-left: 30rpx;
+}
+.single-line{
+  height: 50rpx;
+}
+.btn-view-msg{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.ra-img{
+  width: 100rpx;
+  height: 100rpx;
+  padding-left: 50rpx;
 }

@@ -90,7 +90,7 @@ Page({
     }
     // 设置倒计时 定时器 每100毫秒执行一次，计数器count+1 ,耗时6秒绘一圈
     setInterval(() => {
-      if (this.data.loginLoad <= 95) {
+      if (this.data.loginLoad <= 99) {
         
         this.setData({
           loginLoad:this.data.loginLoad+1

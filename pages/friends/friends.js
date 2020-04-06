@@ -24,6 +24,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+  },
+  /**
+ * 生命周期函数--监听页面显示
+ */
+  onShow: function () {
     this.getFriends()
   },
   clickNewFriend:function(){
@@ -49,7 +55,7 @@ Page({
       }
     }
     wx.navigateTo({
-      url: '/pages/chat/chat?id=' + user.id+'&name='+user.name+'&avatarUrl='+user.avatarUrl,
+      url: '/pages/chat/chat?id=' + user.id+'&name='+user.name+'&avatarUrl='+user.avatarUrl+'&userId='+user.userId,
     })
   },
   getFriends:function(){
@@ -59,7 +65,7 @@ Page({
     var that = this
     var auth = getApp().getAuth()
     wx.request({
-      url: myCommon.myUrl.getAllUserUrl,
+      url: myCommon.myUrl.allFriendUrl,
       data: {
         openId: auth.openId,
         sessionKey: auth.sessionKey,
@@ -68,10 +74,12 @@ Page({
       success: function (res) {
         wx.hideLoading();
         console.log(res)
-        that.setData({
-          friends:res.data
-        })
-        myChat.saveFriendsList(res.data)
+        if ("200" == res.data.status) {
+          that.setData({
+            friends: res.data.data
+          })
+          myChat.saveFriendsList(res.data.data)
+        }
       },
       fail: function (error) {
         console.log(error)
@@ -89,12 +97,7 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
 
-  },
 
   /**
    * 生命周期函数--监听页面隐藏

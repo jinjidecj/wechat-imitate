@@ -18,6 +18,8 @@ var myUrl = {
   findFriendUrl: headUrl +'findFriend',
   addFriendUrl: headUrl +'addFriend',
   myAddFriendMsgUrl: headUrl +'myAddMsg',
+  addMsgReslutUrl: headUrl +'addMsgResult',
+  allFriendUrl: headUrl +'allFriend',
 }
 
 module.exports={

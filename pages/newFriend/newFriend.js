@@ -1,6 +1,7 @@
 // pages/newFriend/newFriend.js
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 var myCommon = require('../../utils/common.js')
+let time = require('../../utils/util.js')
 Page({
 
   /**
@@ -40,15 +41,57 @@ Page({
         console.log("获得消息列表")
         console.log(res.data)
         if ("200" == res.data.status) {
+          that.timeTrans(res.data.addMsg)
           
-          that.setData({
-            friendsRequestMsg: res.data.addMsg,
-          })
-          Toast.success("查找成功")
         }
         else {
           Toast.fail('没有好友消息');
         }
+      },
+      fail: function (error) {
+        console.log(error)
+        wx.showToast({
+          icon: 'none',
+          title: '请检查网络',
+        })
+      }
+    })
+  },
+  //同意添加好友
+  acceptAdd:function(res){
+    var id = res.currentTarget.dataset.total
+    console.log(id)
+    this.sendAddMsgResult(id,1)
+  },
+  //拒绝添加好友
+  refuseAdd: function (res) {
+    var id = res.currentTarget.dataset.total
+    console.log(id)
+    this.sendAddMsgResult(id, 2)
+  },
+  //发送消息的结果：同意还是拒绝
+  sendAddMsgResult:function(id,result){
+    var that = this
+    var auth = getApp().getAuth()
+    wx.request({
+      url: myCommon.myUrl.addMsgReslutUrl,
+      data: {
+        openId: auth.openId,
+        sessionKey: auth.sessionKey,
+        msgId: id,
+        result: result
+      },
+      method: 'GET',
+      success: function (res) {
+        Toast.clear();
+        console.log(res.data)
+        if ("200" == res.data.status) {
+          that.getAddFriendMsgList()
+        }
+        wx.showToast({
+          icon: 'none',
+          title: res.data.msg,
+        })
       },
       fail: function (error) {
         console.log(error)
@@ -97,11 +140,11 @@ Page({
             userSearch:res.data,
             showPop: true
           })
-          Toast.success("查找成功")
         }
-        else {
-          Toast.fail('不存在此用户');
-        }
+        wx.showToast({
+          icon: 'none',
+          title: res.data.msg,
+        })
       },
       fail: function (error) {
         console.log(error)
@@ -139,10 +182,16 @@ Page({
             node:'',
             searchValue:''
           })
-          Toast.success("发送成功")
+          wx.showToast({
+            icon: 'none',
+            title: res.data.msg,
+          })
         }
         else {
-          Toast.fail('发送失败');
+          wx.showToast({
+            icon: 'none',
+            title:res.data.msg,
+          })
         }
       },
       fail: function (error) {
@@ -158,6 +207,17 @@ Page({
   cancelAdd:function(){
     this.setData({
       showPop: false
+    })
+  },
+  //转化时间戳到标准时间
+  timeTrans:function(res){
+    var newMsgs = res
+    console.log(res)
+    for (var i = 0; i < newMsgs.length;i++){
+      newMsgs[i].time = time.formatTimeTwo(newMsgs[i].time, 'Y-M-D h:m:s')
+    }
+    this.setData({
+      friendsRequestMsg:newMsgs
     })
   },
   inputId: function (res) {

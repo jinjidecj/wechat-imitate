@@ -13,6 +13,7 @@
   height: 100vh;
   width: 100vw;
   z-index: -1;
+  /* background-image:url('http:///127.0.0.1:8090/static/imgs/bk3.jpg'); */
   background-image:url('http:///115.29.151.221:8090/static/imgs/bk3.jpg');
   background-size:contain;
 }

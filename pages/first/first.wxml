@@ -36,3 +36,24 @@
   <!-- <image class="bk-img" src="http:///127.0.0.1:8090/static/imgs/bk3.jpg"></image> -->
   <!-- <image class="bk-img" src="http:///115.29.151.221:8090/static/imgs/bk3.jpg"></image> -->
 </view>
+<van-popup show="{{ showPop }}" position="bottom" custom-style="height: 50%" bind:close="onCloseShowPop">
+  <view class="pop-view">
+    <view class="view-list">
+      <view class="view-bottom">
+        <view class="input-view">
+          <view class="text-f">
+            <text class="gary-text title-padding">我们需要获取您的信息，请点击授权按钮</text>
+          </view>
+        </view>
+        <view class="btn-view">
+          <view class="btn-item">
+            <van-button type="primary" size="small" custom-class="btn-small" color="#7661D1" bindtap="confirmAdd">添加好友</van-button>
+          </view>
+          <view class="btn-item">
+            <van-button type="primary" size="small" custom-class="btn-small" color="#7661D1" bindtap="cancelAdd">取消</van-button>  
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</van-popup>

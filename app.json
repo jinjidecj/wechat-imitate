@@ -56,7 +56,8 @@
     "mp-cell": "components/cell/cell",
     "mp-badge": "components/badge/badge",
     "mp-icon": "components/icon/icon",
-
+    "mp-slideview": "components/slideview/slideview",
+    
     "van-circle": "@vant/weapp/circle/index",
     "van-search": "@vant/weapp/search/index",
     "van-popup": "@vant/weapp/popup/index",

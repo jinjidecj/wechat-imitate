@@ -4,7 +4,8 @@ Page({
   data: {
     persionId:'',
     isLogin:false,
-    loginLoad:0
+    loginLoad: 0,
+    showPop: false,
   },
   inputId:function(res){
     this.setData({
@@ -79,7 +80,7 @@ Page({
         //注册过了
         getApp().setUserId(res.userId)
         wx.switchTab({
-          url: '../index/index',
+          url: '../chatlist/chatlist',
         })
       }else{
         //没注册过
@@ -100,6 +101,12 @@ Page({
         clearInterval(this.countTimer);
       }
     }, 50)
+
+    getApp().globalData.pubSub.on('hello', (number) => {
+      this.setData({
+        showPop: true
+      });
+    });
   },
   
   /**

@@ -1,18 +1,23 @@
 //app.js
 var myCommon = require('/utils/common.js')
+var pubsubImport = require('/utils/pubsub.js')
 var webSHandle = require('/utils/webSocketMessage.js')
 
 App({
   globalData: {
+    pubsub:null,
     userInfo: null,
     openId:'',
     userId:'',
     sessionKey:'',
     webSocket:null,
+    unReadAddMsg:0,
+    whichPage:0,//0-chatList  1-chat  2-friends
   },
   //用户登录逻辑：微信登录接口-获取code，发送到后台获取openId,sessionKey并保存到本地,
   //成功后获取个人信息,发送到后台进行保存或更新，成功后启动websocket连接
   onLaunch: function () {
+    this.globalData.pubsub = pubsubImport
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -26,8 +31,23 @@ App({
         that.sendCode(res.code)
       }
     })
+    // this.showTabbarDot()
   },
-
+  showTabbarDot: function () {
+    console.log("dot")
+    wx.showTabBarRedDot({
+      index:1,
+      success:function(res){
+        console.log(res)
+      },
+      fail: function (res){
+        console.log(res)
+      },
+      complete: function (res){
+        console.log(res)
+      }
+    })
+  },
   //================个人信息================//
   //获取用户信息
   getUserInfo:function(){
@@ -35,6 +55,7 @@ App({
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
+          console.log("have auth")
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
@@ -49,6 +70,9 @@ App({
               }
             }
           })
+        }else{
+          console.log("no auth")
+          that.globalData.pubSub.emit('hello', true);
         }
       }
     })

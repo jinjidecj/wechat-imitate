@@ -57,6 +57,7 @@ Page({
       }
     })
   },
+  
   //同意添加好友
   acceptAdd:function(res){
     var id = res.currentTarget.dataset.total

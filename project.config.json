@@ -24,7 +24,7 @@
 		"nodeModules": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.3",
+	"libVersion": "2.10.4",
 	"appid": "wx4967a2d91998acc2",
 	"projectname": "myPro",
 	"debugOptions": {

@@ -1,2 +1,25 @@
-<!--pages/chatlist/chatlist.wxml-->
-<text>聊天列表</text>
+<view>
+  <view class="view-list" wx:if="{{chatList.length!==0}}">
+    <view class="view-items" wx:for="{{chatList}}" wx:key="key">
+      <mp-cells id="{{item.id}}" bindtap="clickFriend">
+        <mp-cell>
+          <view slot="title" style="position: relative;margin-right: 10px;">
+            <image src="{{item.avatarUrl}}" style="width: 50px; height: 50px; display: block" />
+            <mp-badge content="{{item.unread}}" style="position: absolute;top: -.4em;right: -.4em;" wx:if="{{item.unread!=0}}" />
+          </view>
+          <view style="padding-bottom:10rpx;">{{item.name}}</view>
+          <view style="font-size: 13px;color: #888888;">{{item.lastMsg}}</view>
+        </mp-cell>
+      </mp-cells>
+
+    </view>
+  </view>
+  <block wx:else>
+    <view class="nochat-view">
+      <view class="nochat-img-class">
+        <image class="nochat-img" src="../../imgs/chat.png"></image>
+      </view>
+      <text class="nochat-text">聊天列表空空如也</text>
+    </view>
+  </block>
+</view>

@@ -43,19 +43,13 @@ Page({
     this.findAddMsgUnRead()
     var that = this
     //监听websocket事件
-    getApp().globalData.webSocket.onMessage(onMessage => {
-      console.log("websocket 在chatlist里")
-      // var type = JSON.parse(onMessage.type)
-      // if (this.data.id == data.targetId) {
-      //   this.setDocMsg(data.content)
-      // }
+    getApp().globalData.pubSub.on('websocket', (onMessage) => {
       var data = JSON.parse(onMessage.data)
-      if (getApp().globalData.whichPage != data.fromId){
-        that.getUnReadMsg()
-        that.findAddMsgUnRead()
-      }
-      
-    })
+      that.getUnReadMsg()
+      that.findAddMsgUnRead()
+    });
+    
+
   },
   /**
  * 生命周期函数--监听页面显示
@@ -176,8 +170,10 @@ Page({
       this.setData({
         chatList: li
       })
-
-    this.setTabbarDotInChatList(0, myChat.getUnReadSumOnChatList())
+    if (getApp().globalData.whichPage != 1)
+      this.setTabbarDotInChatList(0, myChat.getUnReadSumOnChatList())
+    //通知chat页面，我已经更新了消息列表，让chat列表更新他自己的
+    getApp().globalData.pubSub.emit('chat', mapUserId);
   },
   clickFriend: function (res) {
     var id = res.currentTarget.id
@@ -235,6 +231,7 @@ Page({
         if ("200" == res.data.status) {
           that.setTabbarDotInChatList(1,res.data.data)  
           getApp().globalData.unReadAddMsg=res.data.data
+          getApp().globalData.pubSub.emit('unReadAddMsg', res.data.data);
         }
       },
       fail: function (error) {

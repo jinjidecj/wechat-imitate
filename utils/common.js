@@ -1,6 +1,7 @@
 // 公共变量和函数
 var ip='127.0.0.1'
 var serverIp='115.29.151.221'
+var localIp = '192.168.2.115'
 var port='8090'
 
 var nowIp = serverIp

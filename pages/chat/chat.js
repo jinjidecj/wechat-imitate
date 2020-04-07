@@ -43,23 +43,37 @@ Page({
       avatarUrl: options.avatarUrl,
       userId: options.userId
     });
-    getApp().globalData.whichPage = options.id
     wx.setNavigationBarTitle({
       title: this.data.name,
     });
     this.getChat(options.userId)
     //监听websocket事件
-    getApp().globalData.webSocket.onMessage(onMessage => {
-      console.log("websocket 在chat里")
-      console.log(onMessage)
-      var data = JSON.parse(onMessage.data)
-      if(this.data.id==data.fromId){
-        this.setDocMsg(data.content)
-      }
+    // getApp().globalData.webSocket.onMessage(onMessage => {
+    //   console.log("websocket 在chat里")
+    //   console.log(onMessage)
+    //   var data = JSON.parse(onMessage.data)
+    //   if(this.data.id==data.fromId){
+    //     this.setDocMsg(data.content)
+    //   }
       
-    })
+    // })
   },
-  onShow:function(){
+  onHide:function(){
+    getApp().globalData.pubSub.off('chat')
+  },
+  onShow: function () {
+    getApp().globalData.whichPage = 1
+    var that = this
+    getApp().globalData.pubSub.on('chat', (mapUserId) => {
+      //chatlist更新了他自己的列表，
+      //判断有没有更新当前用户的
+      
+        //有则更新当前数据列表
+      that.getChat(that.data.userId)
+        //然后清除未读数目
+      myChat.clearUnReadToChatList(that.data.userId)
+      
+    });
   },
   getChat:function(userId){
     var li = myChat.getPersonChatData(userId)
@@ -93,7 +107,9 @@ Page({
      * 发送点击监听
      */
   sendClick: function (e) {
-
+    if(e.detail.value==""){
+      return
+    }
     console.log("chakan ")
     var msgHad = this.data.msgList
     console.log(msgHad)

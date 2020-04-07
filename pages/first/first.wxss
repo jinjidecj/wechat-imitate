@@ -74,3 +74,16 @@
   font-size: 40rpx;
   font-weight: bold;
 }
+.pop-view{
+  padding: 30rpx;
+}
+.input-view{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 20rpx 0 20rpx 0;
+}
+.title-padding{
+  padding: 10rpx;
+}

@@ -102,13 +102,32 @@ Page({
       }
     }, 50)
 
-    getApp().globalData.pubSub.on('hello', (number) => {
+    getApp().globalData.pubSub.on('noAuth', (number) => {
       this.setData({
         showPop: true
       });
     });
   },
-  
+  //微信登录，先弹出授权
+  onGotUserInfo: function (e) {
+    var that = this
+    if (e.detail.userInfo) //如果用户允许授权，即点击了“允许"
+    {
+      getApp().globalData.pubSub.emit('getAuth', true);
+      this.setData({
+        showPop: false
+      });
+      //console.log("授权了");
+      // wx.getUserInfo({//授权后可以通过wx.getUserInfo得到用户信息
+      //   lang: "zh_CN",
+      //   success: res => {
+      //     //如果用户点击了授权，可以直接获取到信息
+      //     //console.log(res.userInfo)
+          
+      //   }
+      // })
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

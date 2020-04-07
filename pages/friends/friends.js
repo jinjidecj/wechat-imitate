@@ -24,8 +24,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    //添加未读消息监听事件
+    getApp().globalData.pubSub.on('unReadAddMsg', (number) => {
+      this.setData({
+        msgNum: number
+      });
+    });
   },
+  
   /**
  * 生命周期函数--监听页面显示
  */

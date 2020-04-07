@@ -1,12 +1,12 @@
 //app.js
 var myCommon = require('/utils/common.js')
-var pubsubImport = require('/utils/pubsub.js')
+import Pubsub from '/utils/pubsub.js'
 var webSHandle = require('/utils/webSocketMessage.js')
 
 App({
   globalData: {
-    pubsub:null,
     userInfo: null,
+    pubsub:null,
     openId:'',
     userId:'',
     sessionKey:'',
@@ -17,7 +17,7 @@ App({
   //用户登录逻辑：微信登录接口-获取code，发送到后台获取openId,sessionKey并保存到本地,
   //成功后获取个人信息,发送到后台进行保存或更新，成功后启动websocket连接
   onLaunch: function () {
-    this.globalData.pubsub = pubsubImport
+    this.globalData.pubSub = new Pubsub()
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -32,6 +32,9 @@ App({
       }
     })
     // this.showTabbarDot()
+    this.globalData.pubSub.on('getAuth', (number) => {
+      this.getUserInfo()
+    });
   },
   showTabbarDot: function () {
     console.log("dot")
@@ -72,7 +75,7 @@ App({
           })
         }else{
           console.log("no auth")
-          that.globalData.pubSub.emit('hello', true);
+          that.globalData.pubSub.emit('noAuth', true);
         }
       }
     })
@@ -234,7 +237,8 @@ App({
     })
     //监听 WebSocket 接受到服务器的消息事件
     wx.onSocketMessage(function (res) {
-      webSHandle.onMessageHandle(res)
+      // webSHandle.onMessageHandle(res)
+      that.globalData.pubSub.emit('websocket', res);
     })
     //监听连接关闭事件
     wx.onSocketClose(function (res) {

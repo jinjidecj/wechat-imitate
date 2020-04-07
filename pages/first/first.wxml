@@ -1,5 +1,5 @@
-<view class="front-view" >
- <view class="notify-view" wx:if="{{isLogin}}">
+<view class="front-view">
+  <view class="notify-view" wx:if="{{isLogin}}">
     <view class="text-view">
       <view class="title">
         <text>用前须知</text>
@@ -16,16 +16,16 @@
     </view>
     <view class="input-view">
       <view class="input-box">
-       <input class="input-css" type="text" maxlength="24" bindinput="inputId" placeholder="英文与数字组合，不长于24位" value="{{persionId}}"></input>
+        <input class="input-css" type="text" maxlength="24" bindinput="inputId" placeholder="英文与数字组合，不长于24位" value="{{persionId}}"></input>
       </view>
       <view class="icon-css">
-        <icon type="success" size="60" color="#7661D1" bindtap="clickBtn"/>
+        <icon type="success" size="60" color="#7661D1" bindtap="clickBtn" />
       </view>
     </view>
   </view>
   <block wx:else>
     <view class="loading">
-      <van-circle value="{{ loginLoad }}"number="200px" >
+      <van-circle value="{{ loginLoad }}" number="200px">
         <text class="loading-text">登录中...</text>
       </van-circle>
     </view>
@@ -36,24 +36,14 @@
   <!-- <image class="bk-img" src="http:///127.0.0.1:8090/static/imgs/bk3.jpg"></image> -->
   <!-- <image class="bk-img" src="http:///115.29.151.221:8090/static/imgs/bk3.jpg"></image> -->
 </view>
-<van-popup show="{{ showPop }}" position="bottom" custom-style="height: 50%" bind:close="onCloseShowPop">
+<van-popup show="{{ showPop }}" position="bottom" custom-style="height:25%" bind:close="onCloseShowPop">
   <view class="pop-view">
-    <view class="view-list">
-      <view class="view-bottom">
-        <view class="input-view">
-          <view class="text-f">
-            <text class="gary-text title-padding">我们需要获取您的信息，请点击授权按钮</text>
-          </view>
-        </view>
-        <view class="btn-view">
-          <view class="btn-item">
-            <van-button type="primary" size="small" custom-class="btn-small" color="#7661D1" bindtap="confirmAdd">添加好友</van-button>
-          </view>
-          <view class="btn-item">
-            <van-button type="primary" size="small" custom-class="btn-small" color="#7661D1" bindtap="cancelAdd">取消</van-button>  
-          </view>
-        </view>
-      </view>
+    <view class="input-view">
+      <text class="gary-text title-padding">本小程序需要通过微信登录建立您的账号</text>
+      <text class="gary-text title-padding">请点击登录按钮进行登录</text>
+    </view>
+    <view class="btn-view">
+      <button open-type="getUserInfo" bindgetuserinfo="onGotUserInfo" type="primary">使用微信登录</button>
     </view>
   </view>
 </van-popup>
